@@ -2,16 +2,17 @@
 #define RAYLIB_CPP_DROPPEDFILES_HPP_
 
 #include <string>
-
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
+namespace raylibcpp {
 
-namespace raylib {
 	class DroppedFiles {
 	protected:
 		char** m_files;
@@ -25,7 +26,7 @@ namespace raylib {
 		 * Get the dropped files names.
 		 */
 		DroppedFiles& Get() {
-			m_files = ::GetDroppedFiles(&m_count);
+			m_files = raylib::GetDroppedFiles(&m_count);
 			return *this;
 		}
 
@@ -33,14 +34,14 @@ namespace raylib {
 		 * Check if a file has been dropped into window.
 		 */
 		inline bool IsFileDropped() {
-			return ::IsFileDropped();
+			return raylib::IsFileDropped();
 		}
 
 		/**
 		 * Clear dropped files paths buffer.
 		 */
 		inline DroppedFiles& Clear() {
-			::ClearDroppedFiles();
+			raylib::ClearDroppedFiles();
 			return *this;
 		}
 

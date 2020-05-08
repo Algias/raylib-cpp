@@ -1,55 +1,58 @@
 #ifndef RAYLIB_CPP_MATERIAL_HPP_
 #define RAYLIB_CPP_MATERIAL_HPP_
 
+
+#include "./raylib-cpp-utils.hpp"
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
+namespace raylibcpp {
 
-#include "./raylib-cpp-utils.hpp"
 
-namespace raylib {
-	class Material : public ::Material {
+	class Material : public raylib::Material {
 	public:
-		Material(::Material material) {
+		Material(raylib::Material material) {
 			set(material);
 		};
 
 		Material() {
-			set(LoadMaterialDefault());
+			set(raylib::LoadMaterialDefault());
 		};
 
 		~Material() {
 			Unload();
 		}
 
-		inline void set(::Material material) {
+		inline void set(raylib::Material material) {
 			shader = material.shader;
 			maps = material.maps;
 			params = material.params;
 		}
 
-		GETTERSETTER(::Shader,Shader,shader)
+		GETTERSETTER(raylib::Shader, Shader, shader)
 
-        Material& operator=(const ::Material& material) {
-            set(material);
-            return *this;
-        }
-
-        Material& operator=(const Material& material) {
-            set(material);
-            return *this;
-        }
-
-		inline void Unload() {
-			::UnloadMaterial(*this);
+			Material& operator=(const raylib::Material& material) {
+			set(material);
+			return *this;
 		}
 
-		inline Material& SetTexture(int mapType, ::Texture2D texture) {
-			::SetMaterialTexture(this, mapType, texture);
+		Material& operator=(const Material& material) {
+			set(material);
+			return *this;
+		}
+
+		inline void Unload() {
+			raylib::UnloadMaterial(*this);
+		}
+
+		inline Material& SetTexture(int mapType, raylib::Texture2D texture) {
+			raylib::SetMaterialTexture(this, mapType, texture);
 			return *this;
 		}
 

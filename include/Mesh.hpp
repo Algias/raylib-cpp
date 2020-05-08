@@ -1,13 +1,7 @@
 #ifndef RAYLIB_CPP_MESH_HPP_
 #define RAYLIB_CPP_MESH_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
@@ -15,9 +9,20 @@ extern "C"{
 #include "./Model.hpp"
 
 namespace raylib {
-	class Mesh : public ::Mesh {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+
+namespace raylibcpp {
+
+	class Mesh : public raylib::Mesh {
 	public:
-		Mesh(::Mesh mesh) {
+		Mesh(raylib::Mesh mesh) {
 			set(mesh);
 		};
 
@@ -26,7 +31,7 @@ namespace raylib {
 			triangleCount = TriangleCount;
 		};
 
-		inline void set(::Mesh mesh) {
+		inline void set(raylib::Mesh mesh) {
 			vertexCount = mesh.vertexCount;
 			triangleCount = mesh.triangleCount;
 			vertices = mesh.vertices;
@@ -44,18 +49,18 @@ namespace raylib {
 			vboId = mesh.vboId;
 		}
 
-		GETTERSETTER(int,VertexCount,vertexCount)
-		GETTERSETTER(int,TriangleCount,triangleCount)
+		GETTERSETTER(int, VertexCount, vertexCount)
+			GETTERSETTER(int, TriangleCount, triangleCount)
 
-        Mesh& operator=(const ::Mesh& mesh) {
-            set(mesh);
-            return *this;
-        }
+			Mesh& operator=(const raylib::Mesh& mesh) {
+			set(mesh);
+			return *this;
+		}
 
-        Mesh& operator=(const Mesh& mesh) {
-            set(mesh);
-            return *this;
-        }
+		raylib::Mesh& operator=(const Mesh& mesh) {
+			set(mesh);
+			return *this;
+		}
 
 		~Mesh() {
 			Unload();
@@ -67,28 +72,28 @@ namespace raylib {
 		}
 
 		inline void Unload() {
-			::UnloadMesh(*this);
+			raylib::UnloadMesh(*this);
 		}
 
 		inline raylib::BoundingBox BoundingBox() {
-			return ::MeshBoundingBox(*this);
+			return raylib::MeshBoundingBox(*this);
 		}
 		operator raylib::BoundingBox() {
 			return BoundingBox();
 		}
 
 		inline Mesh& Tangents() {
-			::MeshTangents(this);
+			raylib::MeshTangents(this);
 			return *this;
 		}
 
 		inline Mesh& Binormals() {
-			::MeshBinormals(this);
+			raylib::MeshBinormals(this);
 			return *this;
 		}
 
 		inline raylib::Model LoadModelFrom() {
-			return ::LoadModelFromMesh(*this);
+			return raylib::LoadModelFromMesh(*this);
 		}
 		operator raylib::Model() {
 			return LoadModelFrom();

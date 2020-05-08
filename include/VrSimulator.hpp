@@ -1,29 +1,34 @@
 #ifndef RAYLIB_CPP_VRSIMULATOR_HPP_
 #define RAYLIB_CPP_VRSIMULATOR_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
 namespace raylib {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+
+namespace raylibcpp {
+
 	class VrSimulator {
 	public:
 		VrSimulator() {
 			Init();
 		};
-		VrSimulator(VrDeviceInfo info, Shader distortion) {
+		VrSimulator(raylib::VrDeviceInfo info, Shader distortion) {
 			Init();
 			Set(info, distortion);
 		};
 
 		inline void Init() {
-			InitVrSimulator();
+			raylib::InitVrSimulator();
 		}
 
 		~VrSimulator() {
@@ -31,31 +36,31 @@ namespace raylib {
 		}
 
 		inline bool IsReady() {
-			return ::IsVrSimulatorReady();
+			return raylib::IsVrSimulatorReady();
 		}
 
-		inline VrSimulator& Update(Camera *camera) {
-			::UpdateVrTracking(camera);
+		inline VrSimulator& Update(Camera* camera) {
+			raylib::UpdateVrTracking(camera);
 			return *this;
 		}
-		inline VrSimulator& Set(VrDeviceInfo info, Shader distortion) {
-			::SetVrConfiguration(info, distortion);
+		inline VrSimulator& Set(raylib::VrDeviceInfo info, Shader distortion) {
+			raylib::SetVrConfiguration(info, distortion);
 			return *this;
 		}
 		inline VrSimulator& Toggle() {
-			::ToggleVrMode();
+			raylib::ToggleVrMode();
 			return *this;
 		}
 		inline VrSimulator& Begin() {
-			::BeginVrDrawing();
+			raylib::BeginVrDrawing();
 			return *this;
 		}
 		inline VrSimulator& End() {
-			::EndVrDrawing();
+			raylib::EndVrDrawing();
 			return *this;
 		}
 		inline void Close() {
-			::CloseVrSimulator();
+			raylib::CloseVrSimulator();
 		}
 	};
 }

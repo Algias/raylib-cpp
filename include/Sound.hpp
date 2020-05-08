@@ -3,28 +3,32 @@
 
 #include <string>
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
 namespace raylib {
-	class Sound : public ::Sound {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+namespace raylibcpp {
+
+	class Sound : public raylib::Sound {
 	public:
-		Sound(::Sound vec) {
+		Sound(raylib::Sound vec) {
 			set(vec);
 		};
 
 		Sound(const std::string& fileName) {
-			set(LoadSound(fileName.c_str()));
+			set(raylib::LoadSound(fileName.c_str()));
 		};
 
-		Sound(::Wave wave) {
+		Sound(raylib::Wave wave) {
 			set(LoadSoundFromWave(wave));
 		};
 
@@ -32,70 +36,70 @@ namespace raylib {
 			Unload();
 		}
 
-		inline void set(::Sound sound) {
+		inline void set(raylib::Sound sound) {
 			sampleCount = sound.sampleCount;
 			stream = sound.stream;
 		}
 
-		GETTERSETTER(unsigned int,SampleCount,sampleCount)
-		GETTERSETTER(::AudioStream,Stream,stream)
+		GETTERSETTER(unsigned int, SampleCount, sampleCount)
+			GETTERSETTER(raylib::AudioStream, Stream, stream)
 
-        Sound& operator=(const ::Sound& sound) {
-            set(sound);
-            return *this;
-        }
+			Sound& operator=(const raylib::Sound& sound) {
+			set(sound);
+			return *this;
+		}
 
-        Sound& operator=(const Sound& sound) {
-            set(sound);
-            return *this;
-        }
+		Sound& operator=(const Sound& sound) {
+			set(sound);
+			return *this;
+		}
 
-		inline Sound& Update(const void *data, int sampleCount) {
-			::UpdateSound(*this, data, sampleCount);
+		inline Sound& Update(const void* data, int sampleCount) {
+			raylib::UpdateSound(*this, data, sampleCount);
 			return *this;
 		}
 
 		inline void Unload() {
-			::UnloadSound(*this);
+			raylib::UnloadSound(*this);
 		}
 
 		inline Sound& Play() {
-			::PlaySound(*this);
+			raylib::PlaySound(*this);
 			return *this;
 		}
 
 		inline Sound& Stop() {
-			::StopSound(*this);
+			raylib::StopSound(*this);
 			return *this;
 		}
 		inline Sound& Pause() {
-			::PauseSound(*this);
+			raylib::PauseSound(*this);
 			return *this;
 		}
 		inline Sound& Resume() {
-			::ResumeSound(*this);
+			raylib::ResumeSound(*this);
 			return *this;
 		}
 
 		inline Sound& PlayMulti() {
-			::PlaySoundMulti(*this);
+			raylib::PlaySoundMulti(*this);
 			return *this;
 		}
 
 		inline Sound& StopMulti() {
-			::StopSoundMulti();
+			raylib::StopSoundMulti();
 			return *this;
 		}
 
 		inline bool IsPlaying() {
-			return ::IsSoundPlaying(*this);
+			return raylib::IsSoundPlaying(*this);
 		}
 		inline Sound& SetVolume(float volume) {
-			::SetSoundVolume(*this, volume);
+			raylib::SetSoundVolume(*this, volume);
 			return *this;
 		}
 		inline Sound& SetPitch(float pitch) {
-			::SetSoundPitch(*this, pitch);
+			raylib::SetSoundPitch(*this, pitch);
 			return *this;
 		}
 

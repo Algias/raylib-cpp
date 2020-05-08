@@ -1,42 +1,43 @@
 #ifndef RAYLIB_CPP_VECTOR2_HPP_
 #define RAYLIB_CPP_VECTOR2_HPP_
-
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifndef RAYLIB_CPP_NO_MATH
 #include "raymath.h"
 #endif
 #ifdef __cplusplus
-}
+	}
 #endif
-
+}
 #include "./raylib-cpp-utils.hpp"
 
 #ifndef RAYLIB_CPP_NO_MATH
 #include <cmath>
-#endif
 
-namespace raylib {
-	class Vector2 : public ::Vector2 {
+namespace raylibcpp {
+
+#endif
+	class Vector2 : public raylib::Vector2 {
 	public:
-		Vector2(::Vector2 vec) {
+		Vector2(raylib::Vector2 vec) {
 			set(vec);
 		};
 		Vector2(float X = 0, float Y = 0) {
 			x = X;
 			y = Y;
 		};
-		inline void set(::Vector2 vec) {
+		inline void set(raylib::Vector2 vec) {
 			x = vec.x;
 			y = vec.y;
 		}
 
-		GETTERSETTER(float,X,x)
-		GETTERSETTER(float,Y,y)
+		GETTERSETTER(float, X, x)
+			GETTERSETTER(float, Y, y)
 
-		Vector2& operator=(const ::Vector2& vector2) {
+			Vector2& operator=(const raylib::Vector2& vector2) {
 			set(vector2);
 			return *this;
 		}
@@ -174,46 +175,46 @@ namespace raylib {
 		}
 
 		static Vector2 Zero() {
-			return Vector2Zero();
+			return raylib::Vector2Zero();
 		}
 
 		static Vector2 One() {
-			return Vector2One();
+			return raylib::Vector2One();
 		}
 #endif
 
-		inline Vector2& DrawPixel(::Color color) {
-			::DrawPixelV(*this, color);
+		inline Vector2& DrawPixel(raylib::Color color) {
+			raylib::DrawPixelV(*this, color);
 			return *this;
 		}
 
-		inline Vector2& DrawLine(::Vector2 endPos, ::Color color) {
-			::DrawLineV(*this, endPos, color);
+		inline Vector2& DrawLine(raylib::Vector2 endPos, raylib::Color color) {
+			raylib::DrawLineV(*this, endPos, color);
 			return *this;
 		}
 
-		inline Vector2& DrawLine(::Vector2 endPos, float thick, ::Color color) {
-			::DrawLineEx(*this, endPos, thick, color);
+		inline Vector2& DrawLine(raylib::Vector2 endPos, float thick, raylib::Color color) {
+			raylib::DrawLineEx(*this, endPos, thick, color);
 			return *this;
 		}
 
-		inline Vector2& DrawLineBezier(::Vector2 endPos, float thick, ::Color color) {
-			::DrawLineBezier(*this, endPos, thick, color);
+		inline Vector2& DrawLineBezier(raylib::Vector2 endPos, float thick, raylib::Color color) {
+			raylib::DrawLineBezier(*this, endPos, thick, color);
 			return *this;
 		}
 
-		inline Vector2& DrawCircle(float radius, ::Color color) {
-			::DrawCircleV(*this, radius, color);
+		inline Vector2& DrawCircle(float radius, raylib::Color color) {
+			raylib::DrawCircleV(*this, radius, color);
 			return *this;
 		}
 
-		inline Vector2& DrawRectangle(::Vector2 size, ::Color color) {
-			::DrawRectangleV(*this, size, color);
+		inline Vector2& DrawRectangle(raylib::Vector2 size, raylib::Color color) {
+			raylib::DrawRectangleV(*this, size, color);
 			return *this;
 		}
 
-		inline Vector2& DrawPoly(int sides, float radius, float rotation, ::Color color) {
-			::DrawPoly(*this, sides, radius, rotation, color);
+		inline Vector2& DrawPoly(int sides, float radius, float rotation, raylib::Color color) {
+			raylib::DrawPoly(*this, sides, radius, rotation, color);
 			return *this;
 		}
 	};

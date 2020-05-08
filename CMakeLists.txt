@@ -7,8 +7,8 @@ project (raylib-cpp
 	LANGUAGES C CXX)
 
 # Options
-option(BUILD_RAYLIB_CPP_STATIC "Static Library" ON)
-option(BUILD_RAYLIB_CPP_EXAMPLES "Examples" ON)
+option(BUILD_RAYLIB_CPP_STATIC "Static Library" OFF)
+option(BUILD_RAYLIB_CPP_EXAMPLES "Examples" OFF)
 
 # Include Directory
 add_subdirectory(include)
@@ -16,7 +16,7 @@ add_subdirectory(include)
 # Examples
 if(BUILD_RAYLIB_CPP_EXAMPLES)
 	add_subdirectory(examples)
-	set(BUILD_RAYLIB_CPP_STATIC ON)
+	set(BUILD_RAYLIB_CPP_STATIC OFF)
 endif()
 
 # Static Library

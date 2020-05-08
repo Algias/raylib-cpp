@@ -1,20 +1,24 @@
 #ifndef RAYLIB_CPP_SHADER_HPP_
 #define RAYLIB_CPP_SHADER_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
 namespace raylib {
-	class Shader : public ::Shader {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+namespace raylibcpp {
+
+	class Shader : public raylib::Shader {
 	public:
-		Shader(::Shader shader) {
+		Shader(raylib::Shader shader) {
 			set(shader);
 		};
 
@@ -24,56 +28,56 @@ namespace raylib {
 		};
 
 		Shader() {
-			set(GetShaderDefault());
+			set(raylib::GetShaderDefault());
 		}
 
-		inline void set(::Shader shader) {
+		inline void set(raylib::Shader shader) {
 			id = shader.id;
 			locs = shader.locs;
 		}
 
-		GETTERSETTER(unsigned int,Id,id)
-		GETTERSETTER(int*,Locs,locs)
+		GETTERSETTER(unsigned int, Id, id)
+			GETTERSETTER(int*, Locs, locs)
 
-        Shader& operator=(const ::Shader& shader) {
-            set(shader);
-            return *this;
-        }
+			Shader& operator=(const raylib::Shader& shader) {
+			set(shader);
+			return *this;
+		}
 
-        Shader& operator=(const Shader& shader) {
-            set(shader);
-            return *this;
-        }
+		raylib::Shader& operator=(const Shader& shader) {
+			set(shader);
+			return *this;
+		}
 
 		~Shader() {
 			Unload();
 		}
 
 		void Unload() {
-			::UnloadShader(*this);
+			raylib::UnloadShader(*this);
 		}
 
 		static Shader Load(const std::string& vsFileName, const std::string& fsFileName) {
-			return ::LoadShader(vsFileName.c_str(), fsFileName.c_str());
+			return raylib::LoadShader(vsFileName.c_str(), fsFileName.c_str());
 		}
 		static Shader LoadCode(const std::string& vsCode, const std::string& fsCode) {
 			char* param1 = (char*)vsCode.c_str();
 			char* param2 = (char*)fsCode.c_str();
-			return ::LoadShaderCode(param1, param2);
+			return raylib::LoadShaderCode(param1, param2);
 		}
 
 		inline Shader& BeginShaderMode() {
-			::BeginShaderMode(*this);
+			raylib::BeginShaderMode(*this);
 			return *this;
 		}
 
 		inline Shader& EndShaderMode() {
-			::EndShaderMode();
+			raylib::EndShaderMode();
 			return *this;
 		}
 
 		inline int GetLocation(const std::string& uniformName) {
-			return ::GetShaderLocation(*this, uniformName.c_str());
+			return raylib::GetShaderLocation(*this, uniformName.c_str());
 		}
 	};
 }

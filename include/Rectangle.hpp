@@ -1,21 +1,24 @@
 #ifndef RAYLIB_CPP_RECTANGLE_HPP_
 #define RAYLIB_CPP_RECTANGLE_HPP_
 
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
 
 #include "./raylib-cpp-utils.hpp"
 #include "./Vector2.hpp"
 
-namespace raylib {
-	class Rectangle : public ::Rectangle {
+namespace raylibcpp {
+
+	class Rectangle : public raylib::Rectangle {
 	public:
-		Rectangle(::Rectangle vec) {
+		Rectangle(raylib::Rectangle vec) {
 			set(vec);
 		};
 		Rectangle(float X = 0, float Y = 0, float Width = 0, float Height = 0) {
@@ -25,74 +28,74 @@ namespace raylib {
 			height = Height;
 		};
 
-		inline void set(::Rectangle rect) {
+		inline void set(raylib::Rectangle rect) {
 			x = rect.x;
 			y = rect.y;
 			width = rect.width;
 			height = rect.height;
 		}
 
-		GETTERSETTER(float,X,x)
-		GETTERSETTER(float,Y,y)
-		GETTERSETTER(float,Width,width)
-		GETTERSETTER(float,Height,height)
+		GETTERSETTER(float, X, x)
+			GETTERSETTER(float, Y, y)
+			GETTERSETTER(float, Width, width)
+			GETTERSETTER(float, Height, height)
 
-        Rectangle& operator=(const ::Rectangle& rect) {
-            set(rect);
-            return *this;
-        }
-
-        Rectangle& operator=(const Rectangle& rect) {
-            set(rect);
-            return *this;
-        }
-
-		inline Rectangle& Draw(::Color color) {
-			::DrawRectangle(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color);
-			return *this;
-		}
-		inline Rectangle& Draw(::Vector2 origin, float rotation, ::Color color) {
-			::DrawRectanglePro(*this, origin, rotation, color);
+			Rectangle& operator=(const raylib::Rectangle& rect) {
+			set(rect);
 			return *this;
 		}
 
-		inline Rectangle& DrawGradientV(::Color color1, ::Color color2){
-			::DrawRectangleGradientH(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color1, color2);
-			return *this;
-		}
-		inline Rectangle& DrawGradientH(::Color color1, ::Color color2) {
-			::DrawRectangleGradientH(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color1, color2);
-			return *this;
-		}
-		inline Rectangle& DrawGradient(::Color col1, ::Color col2, ::Color col3, ::Color col4) {
-			::DrawRectangleGradientEx(*this, col1, col2, col3, col4);
-			return *this;
-		}
-		inline Rectangle& DrawLines(::Color color){
-			::DrawRectangleLines(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color);
-			return *this;
-		}
-		inline Rectangle& DrawLinesEx(int lineThick, ::Color color){
-			::DrawRectangleLinesEx(*this, lineThick, color);
-			return *this;
-		}
-		inline Rectangle& DrawRounded(float roundness, int segments, ::Color color){
-			::DrawRectangleRounded(*this, roundness, segments, color);
-			return *this;
-		}
-		inline Rectangle& DrawRoundedLines(float roundness, int segments, int lineThick, ::Color color) {
-			::DrawRectangleRoundedLines(*this, roundness, segments, lineThick, color);
+		raylib::Rectangle& operator=(const Rectangle& rect) {
+			set(rect);
 			return *this;
 		}
 
-		inline bool CheckCollision(::Rectangle rec2) {
-			return ::CheckCollisionRecs(*this, rec2);
+		inline Rectangle& Draw(raylib::Color color) {
+			raylib::DrawRectangle(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color);
+			return *this;
 		}
-		inline Rectangle GetCollision(::Rectangle rec2) {
-			return ::GetCollisionRec(*this, rec2);
+		inline Rectangle& Draw(raylib::Vector2 origin, float rotation, raylib::Color color) {
+			raylib::DrawRectanglePro(*this, origin, rotation, color);
+			return *this;
 		}
-		inline bool CheckCollision(::Vector2 point) {
-			return ::CheckCollisionPointRec(point, *this);
+
+		inline Rectangle& DrawGradientV(raylib::Color color1, raylib::Color color2) {
+			raylib::DrawRectangleGradientH(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color1, color2);
+			return *this;
+		}
+		inline Rectangle& DrawGradientH(raylib::Color color1, raylib::Color color2) {
+			raylib::DrawRectangleGradientH(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color1, color2);
+			return *this;
+		}
+		inline Rectangle& DrawGradient(raylib::Color col1, raylib::Color col2, raylib::Color col3, raylib::Color col4) {
+			raylib::DrawRectangleGradientEx(*this, col1, col2, col3, col4);
+			return *this;
+		}
+		inline Rectangle& DrawLines(raylib::Color color) {
+			raylib::DrawRectangleLines(static_cast<int>(x), static_cast<int>(y), static_cast<int>(width), static_cast<int>(height), color);
+			return *this;
+		}
+		inline Rectangle& DrawLinesEx(int lineThick, raylib::Color color) {
+			raylib::DrawRectangleLinesEx(*this, lineThick, color);
+			return *this;
+		}
+		inline Rectangle& DrawRounded(float roundness, int segments, raylib::Color color) {
+			raylib::DrawRectangleRounded(*this, roundness, segments, color);
+			return *this;
+		}
+		inline Rectangle& DrawRoundedLines(float roundness, int segments, int lineThick, raylib::Color color) {
+			raylib::DrawRectangleRoundedLines(*this, roundness, segments, lineThick, color);
+			return *this;
+		}
+
+		inline bool CheckCollision(raylib::Rectangle rec2) {
+			return raylib::CheckCollisionRecs(*this, rec2);
+		}
+		inline Rectangle GetCollision(raylib::Rectangle rec2) {
+			return raylib::GetCollisionRec(*this, rec2);
+		}
+		inline bool CheckCollision(raylib::Vector2 point) {
+			return raylib::CheckCollisionPointRec(point, *this);
 		}
 	};
 }

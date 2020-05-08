@@ -1,18 +1,23 @@
 #ifndef RAYLIB_CPP_PHYSICS_HPP_
 #define RAYLIB_CPP_PHYSICS_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#include "physac.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./Vector2.hpp"
 
 namespace raylib {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#include "physac.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+
+namespace raylibcpp {
+
 	class Physics {
 	public:
 		Physics() {

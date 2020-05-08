@@ -2,20 +2,21 @@
 #define RAYLIB_CPP_COLOR_HPP_
 
 #include <string>
-
+#include "./raylib-cpp-utils.hpp"
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
 
-#include "./Vector4.hpp"
-#include "./raylib-cpp-utils.hpp"
+#include <Rectangle.hpp>
+namespace raylibcpp {
 
-namespace raylib {
-	class Color : public ::Color {
+	class Color : public raylib::Color {
 	public:
 		Color() {
 			r = 0;
@@ -23,7 +24,7 @@ namespace raylib {
 			b = 0;
 			a = 255;
 		}
-		Color(::Color color) {
+		Color(raylib::Color color) {
 			r = color.r;
 			g = color.g;
 			b = color.b;
@@ -35,17 +36,17 @@ namespace raylib {
 			b = blue;
 			a = alpha;
 		};
-		Color(::Vector3 hsv) {
-			set(::ColorFromHSV(hsv));
+		Color(raylib::Vector3 hsv) {
+			set(raylib::ColorFromHSV(hsv));
 		};
 		Color(int hexValue) {
-			set(::GetColor(hexValue));
+			set(raylib::GetColor(hexValue));
 		};
-		Color(Vector4 normalized) {
-			set(::ColorFromNormalized(normalized));
+		Color(raylib::Vector4 normalized) {
+			set(raylib::ColorFromNormalized(normalized));
 		}
 
-		inline void set(const ::Color& color) {
+		inline void set(const raylib::Color& color) {
 			r = color.r;
 			g = color.g;
 			b = color.b;
@@ -87,31 +88,31 @@ namespace raylib {
 		static Color RayWhite;
 
 		int ToInt() {
-			return ::ColorToInt(*this);
+			return raylib::ColorToInt(*this);
 		}
 
-		operator int() const { return ::ColorToInt(*this); }
+		operator int() const { return raylib::ColorToInt(*this); }
 
 		Color Fade(float alpha) {
-			Color a;
-			a.set(::Fade(*this, alpha));
-			return a;
+			Color _a;
+			_a.set(raylib::Fade(*this, alpha));
+			return _a;
 		}
 
-		Vector4 Normalize() {
-			return ::ColorNormalize(*this);
+		raylib::Vector4 Normalize() {
+			return raylib::ColorNormalize(*this);
 		}
 
-		Vector3 ToHSV() {
-			return ::ColorToHSV(*this);
+		raylib::Vector3 ToHSV() {
+			return raylib::ColorToHSV(*this);
 		}
 
-		GETTERSETTER(unsigned char,R,r)
-		GETTERSETTER(unsigned char,G,g)
-		GETTERSETTER(unsigned char,B,b)
-		GETTERSETTER(unsigned char,A,a)
+		GETTERSETTER(unsigned char, R, r)
+			GETTERSETTER(unsigned char, G, g)
+			GETTERSETTER(unsigned char, B, b)
+			GETTERSETTER(unsigned char, A, a)
 
-		Color& operator=(const ::Color& color) {
+			Color& operator=(const raylib::Color& color) {
 			set(color);
 			return *this;
 		}
@@ -122,113 +123,112 @@ namespace raylib {
 		}
 
 		inline Color& ClearBackground() {
-			::ClearBackground(*this);
+			raylib::ClearBackground(*this);
 			return *this;
 		}
 
 		inline Color& DrawPixel(int x, int y) {
-			::DrawPixel(x, y, *this);
+			raylib::DrawPixel(x, y, *this);
 			return *this;
 		}
 
-		inline Color& DrawPixel(::Vector2 pos) {
-			::DrawPixelV(pos, *this);
+		inline Color& DrawPixel(raylib::Vector2 pos) {
+			raylib::DrawPixelV(pos, *this);
 			return *this;
 		}
 
 		inline Color& DrawLine(int startPosX, int startPosY, int endPosX, int endPosY) {
-			::DrawLine(startPosX, startPosY, endPosX, endPosY, *this);
+			raylib::DrawLine(startPosX, startPosY, endPosX, endPosY, *this);
 			return *this;
 		}
-		inline Color& DrawLine(::Vector2 startPos, ::Vector2 endPos) {
-			::DrawLineV(startPos, endPos, *this);
+		inline Color& DrawLine(raylib::Vector2 startPos, raylib::Vector2 endPos) {
+			raylib::DrawLineV(startPos, endPos, *this);
 			return *this;
 		}
-		inline Color& DrawLine(::Vector2 startPos, ::Vector2 endPos, float thick) {
-			::DrawLineEx(startPos, endPos, thick, *this);
+		inline Color& DrawLine(raylib::Vector2 startPos, raylib::Vector2 endPos, float thick) {
+			raylib::DrawLineEx(startPos, endPos, thick, *this);
 			return *this;
 		}
-		inline Color& DrawLineBezier(::Vector2 startPos, Vector2 endPos, float thick) {
-			::DrawLineBezier(startPos, endPos, thick, *this);
+		inline Color& DrawLineBezier(raylib::Vector2 startPos, Vector2 endPos, float thick) {
+			raylib::DrawLineBezier(startPos, endPos, thick, *this);
 			return *this;
 		}
-		inline Color& DrawLineStrip(::Vector2 *points, int numPoints) {
-			::DrawLineStrip(points, numPoints, *this);
+		inline Color& DrawLineStrip(raylib::Vector2* points, int numPoints) {
+			raylib::DrawLineStrip(points, numPoints, *this);
 			return *this;
 		}
 
 		inline Color& DrawText(const std::string& text, int posX, int posY, int fontSize) {
-			::DrawText(text.c_str(), posX, posY, fontSize, *this);
+			raylib::DrawText(text.c_str(), posX, posY, fontSize, *this);
 			return *this;
 		}
-		inline Color& DrawText(::Font font, const std::string& text, ::Vector2 position, float fontSize, float spacing) {
-			::DrawTextEx(font, text.c_str(), position, fontSize, spacing, *this);
+		inline Color& DrawText(raylib::Font font, const std::string& text, raylib::Vector2 position, float fontSize, float spacing) {
+			raylib::DrawTextEx(font, text.c_str(), position, fontSize, spacing, *this);
 			return *this;
 		}
 
-		inline Color& DrawText(::Font font, const std::string& text, ::Rectangle rec, float fontSize, float spacing, bool wordWrap = false) {
-			::DrawTextRec(font, text.c_str(), rec, fontSize, spacing, wordWrap, *this);
+		inline Color& DrawText(raylib::Font font, const std::string& text, raylib::Rectangle rec, float fontSize, float spacing, bool wordWrap = false) {
+			raylib::DrawTextRec(font, text.c_str(), rec, fontSize, spacing, wordWrap, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangle(int posX, int posY, int width, int height) {
-			::DrawRectangle(posX, posY, width, height, *this);
+			raylib::DrawRectangle(posX, posY, width, height, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangle(Vector2 position, Vector2 size) {
-			::DrawRectangleV(position, size, *this);
+			raylib::DrawRectangleV(position, size, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangle(Rectangle rec) {
-			::DrawRectangleRec(rec, *this);
+			raylib::DrawRectangleRec(rec, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangle(Rectangle rec, Vector2 origin, float rotation) {
-			::DrawRectanglePro(rec, origin, rotation, *this);
+			raylib::DrawRectanglePro(rec, origin, rotation, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangleLines(int posX, int posY, int width, int height) {
-			::DrawRectangleLines(posX, posY, width, height, *this);
+			raylib::DrawRectangleLines(posX, posY, width, height, *this);
 			return *this;
 		}
 
 		inline Color& DrawRectangleLines(Rectangle rec, int lineThick) {
-			::DrawRectangleLinesEx(rec, lineThick, *this);
+			raylib::DrawRectangleLinesEx(rec, lineThick, *this);
 			return *this;
 		}
 
 	};
 
-	inline Color Color::LightGray = ::LIGHTGRAY;
-	inline Color Color::Gray = ::GRAY;
-	inline Color Color::DarkGray = ::DARKGRAY;
-	inline Color Color::Yellow = ::YELLOW;
-	inline Color Color::Gold = ::GOLD;
-	inline Color Color::Orange = ::ORANGE;
-	inline Color Color::Pink = ::PINK;
-	inline Color Color::Red = ::RED;
-	inline Color Color::Maroon = ::MAROON;
-	inline Color Color::Green = ::GREEN;
-	inline Color Color::Lime = ::LIME;
-	inline Color Color::DarkGreen = ::DARKGREEN;
-	inline Color Color::SkyBlue = ::SKYBLUE;
-	inline Color Color::Blue = ::BLUE;
-	inline Color Color::DarkBlue = ::DARKBLUE;
-	inline Color Color::Purple = ::PURPLE;
-	inline Color Color::Violet = ::VIOLET;
-	inline Color Color::DarkPurple = ::DARKPURPLE;
-	inline Color Color::Beige = ::BEIGE;
-	inline Color Color::Brown = ::BROWN;
-	inline Color Color::DarkBrown = ::DARKBROWN;
-	inline Color Color::White = ::WHITE;
-	inline Color Color::Black = ::BLACK;
-	inline Color Color::Blank = ::BLANK;
-	inline Color Color::Magenta = ::MAGENTA;
-	inline Color Color::RayWhite = ::RAYWHITE;
+	inline Color Color::LightGray = raylib::LIGHTGRAY;
+	inline Color Color::Gray = raylib::GRAY;
+	inline Color Color::DarkGray = raylib::DARKGRAY;
+	inline Color Color::Yellow = raylib::YELLOW;
+	inline Color Color::Gold = raylib::GOLD;
+	inline Color Color::Orange = raylib::ORANGE;
+	inline Color Color::Pink = raylib::PINK;
+	inline Color Color::Red = raylib::RED;
+	inline Color Color::Maroon = raylib::MAROON;
+	inline Color Color::Green = raylib::GREEN;
+	inline Color Color::Lime = raylib::LIME;
+	inline Color Color::DarkGreen = raylib::DARKGREEN;
+	inline Color Color::SkyBlue = raylib::SKYBLUE;
+	inline Color Color::Blue = raylib::BLUE;
+	inline Color Color::DarkBlue = raylib::DARKBLUE;
+	inline Color Color::Purple = raylib::PURPLE;
+	inline Color Color::Violet = raylib::VIOLET;
+	inline Color Color::DarkPurple = raylib::DARKPURPLE;
+	inline Color Color::Beige = raylib::BEIGE;
+	inline Color Color::Brown = raylib::BROWN;
+	inline Color Color::DarkBrown = raylib::DARKBROWN;
+	inline Color Color::White = raylib::WHITE;
+	inline Color Color::Black = raylib::BLACK;
+	inline Color Color::Blank = raylib::BLANK;
+	inline Color Color::Magenta = raylib::MAGENTA;
+	inline Color Color::RayWhite = raylib::RAYWHITE;
 }
-
 #endif

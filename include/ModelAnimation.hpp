@@ -1,18 +1,22 @@
 #ifndef RAYLIB_CPP_MODEL_HPP_
 #define RAYLIB_CPP_MODEL_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
 
 #include "./raylib-cpp-utils.hpp"
 #include "./Mesh.hpp"
 
 namespace raylib {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+
+namespace raylibcpp {
+
 	class ModelAnimation : public ::ModelAnimation {
 	public:
 		ModelAnimation(::ModelAnimation model) {
@@ -30,20 +34,20 @@ namespace raylib {
 			framePoses = model.framePoses;
 		}
 
-		GETTERSETTER(int,BoneCount,boneCount)
-		GETTERSETTER(::BoneInfo*,Bones,bones)
-		GETTERSETTER(int,FrameCount,frameCount)
-		GETTERSETTER(Transform**,FramePoses,framePoses)
+		GETTERSETTER(int, BoneCount, boneCount)
+			GETTERSETTER(::BoneInfo*, Bones, bones)
+			GETTERSETTER(int, FrameCount, frameCount)
+			GETTERSETTER(Transform**, FramePoses, framePoses)
 
-        ModelAnimation& operator=(const ::ModelAnimation& model) {
-            set(model);
-            return *this;
-        }
+			ModelAnimation& operator=(const ::ModelAnimation& model) {
+			set(model);
+			return *this;
+		}
 
-        ModelAnimation& operator=(const ModelAnimation& model) {
-            set(model);
-            return *this;
-        }
+		ModelAnimation& operator=(const ModelAnimation& model) {
+			set(model);
+			return *this;
+		}
 
 		inline void Unload() {
 			::UnloadModelAnimation(*this);

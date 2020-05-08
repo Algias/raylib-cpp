@@ -3,17 +3,21 @@
 
 #include <string>
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
 namespace raylib {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+namespace raylibcpp {
+
 	class Gamepad {
 	public:
 		Gamepad(int gamepadNumber = 0) {
@@ -25,49 +29,49 @@ namespace raylib {
 			number = gamepadNumber;
 		}
 
-		GETTERSETTER(int,Number,number)
+		GETTERSETTER(int, Number, number)
 
-        Gamepad& operator=(const Gamepad& gamepad) {
-            set(gamepad);
-            return *this;
-        }
+			Gamepad& operator=(const Gamepad& gamepad) {
+			set(gamepad);
+			return *this;
+		}
 
 		operator int() const { return number; }
 
 		inline bool IsAvailable() {
-			return ::IsGamepadAvailable(number);
+			return raylib::IsGamepadAvailable(number);
 		}
 		inline bool IsName(const std::string& name) {
-			return ::IsGamepadName(number, name.c_str());
+			return raylib::IsGamepadName(number, name.c_str());
 		}
 		std::string GetName() {
-			return std::string(::GetGamepadName(number));
+			return std::string(raylib::GetGamepadName(number));
 		}
 		inline bool IsButtonPressed(int button) {
-			return ::IsGamepadButtonPressed(number, button);
+			return raylib::IsGamepadButtonPressed(number, button);
 		}
 
 		inline bool IsButtonDown(int button) {
-			return ::IsGamepadButtonDown(number, button);
+			return raylib::IsGamepadButtonDown(number, button);
 		}
 
 		inline bool IsButtonReleased(int button) {
-			return ::IsGamepadButtonReleased(number, button);
+			return raylib::IsGamepadButtonReleased(number, button);
 		}
 		inline bool IsButtonUp(int button) {
-			return ::IsGamepadButtonUp(number, button);
+			return raylib::IsGamepadButtonUp(number, button);
 		}
 
 		inline int GetButtonPressed() {
-			return ::GetGamepadButtonPressed();
+			return raylib::GetGamepadButtonPressed();
 		}
 
 		inline int GetAxisCount() {
-			return ::GetGamepadAxisCount(number);
+			return raylib::GetGamepadAxisCount(number);
 		}
 
 		inline float GetAxisMovement(int axis) {
-			return ::GetGamepadAxisMovement(number, axis);
+			return raylib::GetGamepadAxisMovement(number, axis);
 		}
 	};
 }

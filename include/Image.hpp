@@ -1,28 +1,34 @@
 #ifndef RAYLIB_CPP_IMAGE_HPP_
 #define RAYLIB_CPP_IMAGE_HPP_
 
+
+
+#include "./raylib-cpp-utils.hpp"
+namespace raylib {
 #include <string>
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
 
-#include "./raylib-cpp-utils.hpp"
+#include <Rectangle.hpp>
+#include <Font.hpp>
+namespace raylibcpp {
 
-namespace raylib {
-	class Image : public ::Image {
+	class Image : public raylib::Image {
 	public:
 		Image() {};
-		Image(::Image image) {
+		Image(raylib::Image image) {
 			set(image);
 		}
 		Image(const std::string& fileName) {
 			Load(fileName);
 		}
-		Image(::Color* pixels, int width, int height) {
+		Image(raylib::Color* pixels, int width, int height) {
 			LoadEx(pixels, width, height);
 		}
 		Image(void* data, int width, int height, int format) {
@@ -31,72 +37,72 @@ namespace raylib {
 		Image(const std::string& fileName, int width, int height, int format, int headerSize) {
 			LoadRaw(fileName, width, height, format, headerSize);
 		}
-		Image(::Texture2D texture) {
-			set(::GetTextureData(texture));
+		Image(raylib::Texture2D texture) {
+			set(raylib::GetTextureData(texture));
 		}
-		Image(int width, int height, Color color = raylib::Color::RayWhite) {
-			set(::GenImageColor(width, height, color));
+		Image(int width, int height, Color color = Color::RayWhite) {
+			set(raylib::GenImageColor(width, height, color));
 		}
 
 		static Image Text(std::string text, int fontSize, Color color) {
-			return ::ImageText(text.c_str(), fontSize, color);
+			return raylib::ImageText(text.c_str(), fontSize, color);
 		}
 
 		static Image Text(Font font, std::string text, float fontSize, float spacing, Color tint) {
-			return ::ImageTextEx(font, text.c_str(), fontSize, spacing, tint);
+			return raylib::ImageTextEx(font, text.c_str(), fontSize, spacing, tint);
 		}
 
 		static Image GetScreenData() {
-			return Image(::GetScreenData());
+			return Image(raylib::GetScreenData());
 		}
 
 		static Image GenColor(int width, int height, Color color) {
-			return ::GenImageColor(width, height, color);
+			return raylib::GenImageColor(width, height, color);
 		}
 
 		static Image GenGradientV(int width, int height, Color top, Color bottom) {
-			return ::GenImageGradientV(width, height, top, bottom);
+			return raylib::GenImageGradientV(width, height, top, bottom);
 		}
 
 		static Image GenGradientH(int width, int height, Color left, Color right) {
-			return ::GenImageGradientH(width, height, left, right);
+			return raylib::GenImageGradientH(width, height, left, right);
 		}
 
 		static Image GenGradientRadial(int width, int height, float density, Color inner, Color outer) {
-			return ::GenImageGradientRadial(width, height, density, inner, outer);
+			return raylib::GenImageGradientRadial(width, height, density, inner, outer);
 		}
 
 		static Image GenChecked(int width, int height, int checksX, int checksY, Color col1, Color col2) {
-			return ::GenImageChecked(width, height, checksX, checksY, col1, col2);
+			return raylib::GenImageChecked(width, height, checksX, checksY, col1, col2);
 		}
 
 		static Image GenWhiteNoise(int width, int height, float factor) {
-			return ::GenImageWhiteNoise(width, height, factor);
+			return raylib::GenImageWhiteNoise(width, height, factor);
 		}
 
 		static Image GenPerlinNoise(int width, int height, int offsetX, int offsetY, float scale) {
-			return ::GenImagePerlinNoise(width, height, offsetX, offsetY, scale);
+			return raylib::GenImagePerlinNoise(width, height, offsetX, offsetY, scale);
 		}
 
 		static Image GenCellular(int width, int height, int tileSize) {
-			return ::GenImageCellular(width, height, tileSize);
+			return raylib::GenImageCellular(width, height, tileSize);
 		}
 
 		~Image() {
 			Unload();
 		};
 
-        Image& operator=(const ::Image& image) {
-            set(image);
-            return *this;
-        }
+		Image& operator=(const raylib::Image& image) {
+			set(image);
+			return *this;
+		}
 
-        Image& operator=(const Image& image) {
-            set(image);
-            return *this;
-        }
+		raylib::Image& operator=(const Image& image) {
+			set(image);
+			return *this;
+		}
 
-		inline void set(::Image image) {
+		inline void set(raylib::Image image) {
 			data = image.data;
 			width = image.width;
 			height = image.height;
@@ -105,220 +111,220 @@ namespace raylib {
 		}
 
 		void Load(const std::string& fileName) {
-			set(::LoadImage(fileName.c_str()));
+			set(raylib::LoadImage(fileName.c_str()));
 		}
 
-		void LoadEx(::Color* pixels, int width, int height) {
-			set(::LoadImageEx(pixels, width, height));
+		void LoadEx(raylib::Color* pixels, int width, int height) {
+			set(raylib::LoadImageEx(pixels, width, height));
 		}
 
 		void LoadPro(void* data, int width, int height, int format) {
-			set(::LoadImagePro(data, width, height, format));
+			set(raylib::LoadImagePro(data, width, height, format));
 		}
 
 		void LoadRaw(const std::string& fileName, int width, int height, int format, int headerSize) {
-			set(::LoadImageRaw(fileName.c_str(), width, height, format, headerSize));
+			set(raylib::LoadImageRaw(fileName.c_str(), width, height, format, headerSize));
 		}
 
 		inline void Unload() {
-			::UnloadImage(*this);
+			raylib::UnloadImage(*this);
 		};
 
 		inline Image& Export(const std::string& fileName) {
-			::ExportImage(*this, fileName.c_str());
+			raylib::ExportImage(*this, fileName.c_str());
 			return *this;
 		}
 		inline Image& ExportAsCode(const std::string& fileName) {
-			::ExportImageAsCode(*this, fileName.c_str());
+			raylib::ExportImageAsCode(*this, fileName.c_str());
 			return *this;
 		}
 
-		GETTERSETTER(void*,Data,data)
-		GETTERSETTER(int,Width,width)
-		GETTERSETTER(int,Height,height)
-		GETTERSETTER(int,Mipmaps,mipmaps)
-		GETTERSETTER(int,Format,format)
+		GETTERSETTER(void*, Data, data)
+			GETTERSETTER(int, Width, width)
+			GETTERSETTER(int, Height, height)
+			GETTERSETTER(int, Mipmaps, mipmaps)
+			GETTERSETTER(int, Format, format)
 
-		inline Image Copy() {
-			return ::ImageCopy(*this);
+			inline Image Copy() {
+			return raylib::ImageCopy(*this);
 		}
-		inline Image FromImage(::Rectangle rec) {
-			return ::ImageFromImage(*this, rec);
+		inline Image FromImage(raylib::Rectangle rec) {
+			return raylib::ImageFromImage(*this, rec);
 		}
 
 		inline Image& ToPOT(Color fillColor) {
-			::ImageToPOT(this, fillColor);
+			raylib::ImageToPOT(this, fillColor);
 			return *this;
 		}
 
 		inline Image& Format(int newFormat) {
-			::ImageFormat(this, newFormat);
+			raylib::ImageFormat(this, newFormat);
 			return *this;
 		}
 
 		inline Image& AlphaMask(Image alphaMask) {
-			::ImageAlphaMask(this, alphaMask);
+			raylib::ImageAlphaMask(this, alphaMask);
 			return *this;
 		}
 
 		inline Image& AlphaCrop(float threshold) {
-			::ImageAlphaCrop(this, threshold);
+			raylib::ImageAlphaCrop(this, threshold);
 			return *this;
 		}
 
 		inline Image& AlphaPremultiply() {
-			::ImageAlphaPremultiply(this);
+			raylib::ImageAlphaPremultiply(this);
 			return *this;
 		}
 
-		inline Image& Crop(::Rectangle crop) {
-			::ImageCrop(this, crop);
+		inline Image& Crop(raylib::Rectangle crop) {
+			raylib::ImageCrop(this, crop);
 			return *this;
 		}
 		inline Image& Resize(int newWidth, int newHeight) {
-			::ImageResize(this, newWidth, newHeight);
+			raylib::ImageResize(this, newWidth, newHeight);
 			return *this;
 		}
 		inline Image& ResizeNN(int newWidth, int newHeight) {
-			::ImageResizeNN(this, newWidth, newHeight);
+			raylib::ImageResizeNN(this, newWidth, newHeight);
 			return *this;
 		}
 		inline Image& ResizeCanvas(int newWidth, int newHeight, int offsetX, int offsetY, Color color) {
-			::ImageResizeCanvas(this, newWidth, newHeight, offsetX, offsetY, color);
+			raylib::ImageResizeCanvas(this, newWidth, newHeight, offsetX, offsetY, color);
 			return *this;
 		}
 		inline Image& Mipmaps() {
-			::ImageMipmaps(this);
+			raylib::ImageMipmaps(this);
 			return *this;
 		}
 		inline Image& Dither(int rBpp, int gBpp, int bBpp, int aBpp) {
-			::ImageDither(this, rBpp, gBpp, bBpp, aBpp);
+			raylib::ImageDither(this, rBpp, gBpp, bBpp, aBpp);
 			return *this;
 		}
 
 		inline Image& FlipVertical() {
-			::ImageFlipVertical(this);
+			raylib::ImageFlipVertical(this);
 			return *this;
 		}
 		inline Image& FlipHorizontal() {
-			::ImageFlipHorizontal(this);
+			raylib::ImageFlipHorizontal(this);
 			return *this;
 		}
 
 		inline Image& RotateCW() {
-			::ImageRotateCW(this);
+			raylib::ImageRotateCW(this);
 			return *this;
 		}
 		inline Image& RotateCCW() {
-			::ImageRotateCCW(this);
+			raylib::ImageRotateCCW(this);
 			return *this;
 		}
-		inline Image& ColorTint(::Color color = WHITE) {
-			::ImageColorTint(this, color);
+		inline Image& ColorTint(raylib::Color color = WHITE) {
+			raylib::ImageColorTint(this, color);
 			return *this;
 		}
 		inline Image& ColorInvert() {
-			::ImageColorInvert(this);
+			raylib::ImageColorInvert(this);
 			return *this;
 		}
 		inline Image& ColorGrayscale() {
-			::ImageColorGrayscale(this);
+			raylib::ImageColorGrayscale(this);
 			return *this;
 		}
 		inline Image& ColorContrast(float contrast) {
-			::ImageColorContrast(this, contrast);
+			raylib::ImageColorContrast(this, contrast);
 			return *this;
 		}
 		inline Image& ColorBrightness(int brightness) {
-			::ImageColorBrightness(this, brightness);
+			raylib::ImageColorBrightness(this, brightness);
 			return *this;
 		}
-		inline Image& ColorReplace(::Color color, ::Color replace) {
-			::ImageColorReplace(this, color, replace);
+		inline Image& ColorReplace(raylib::Color color, raylib::Color replace) {
+			raylib::ImageColorReplace(this, color, replace);
 			return *this;
 		}
 
-		inline ::Color* ExtractPalette(int maxPaletteSize, int *extractCount) {
-			return ::ImageExtractPalette(*this, maxPaletteSize, extractCount);
+		inline raylib::Color* ExtractPalette(int maxPaletteSize, int* extractCount) {
+			return raylib::ImageExtractPalette(*this, maxPaletteSize, extractCount);
 		}
 
 		inline Rectangle GetAlphaBorder(float threshold) {
-			return ::GetImageAlphaBorder(*this, threshold);
+			return raylib::GetImageAlphaBorder(*this, threshold);
 		}
 
-		inline Image& ClearBackground(::Color color = WHITE) {
-			::ImageClearBackground(this, color);
-			return *this;
-		}
-
-		inline Image& DrawPixel(int posX, int posY, ::Color color) {
-			::ImageDrawPixel(this, posX, posY, color);
+		inline Image& ClearBackground(raylib::Color color = WHITE) {
+			raylib::ImageClearBackground(this, color);
 			return *this;
 		}
 
-		inline Image& DrawPixel(::Vector2 position, ::Color color) {
-			::ImageDrawPixelV(this, position, color);
+		inline Image& DrawPixel(int posX, int posY, raylib::Color color) {
+			raylib::ImageDrawPixel(this, posX, posY, color);
 			return *this;
 		}
 
-		inline Image& DrawLine(int startPosX, int startPosY, int endPosX, int endPosY, ::Color color) {
-			::ImageDrawLine(this, startPosX, startPosY, endPosX, endPosY, color);
+		inline Image& DrawPixel(raylib::Vector2 position, raylib::Color color) {
+			raylib::ImageDrawPixelV(this, position, color);
 			return *this;
 		}
 
-		inline Image& DrawLine(::Vector2 start, ::Vector2 end, ::Color color) {
-			::ImageDrawLineV(this, start, end, color);
+		inline Image& DrawLine(int startPosX, int startPosY, int endPosX, int endPosY, raylib::Color color) {
+			raylib::ImageDrawLine(this, startPosX, startPosY, endPosX, endPosY, color);
 			return *this;
 		}
 
-		inline Image& DrawCircle(int centerX, int centerY, int radius, ::Color color) {
-			::ImageDrawCircle(this, centerX, centerY, radius, color);
+		inline Image& DrawLine(raylib::Vector2 start, raylib::Vector2 end, raylib::Color color) {
+			raylib::ImageDrawLineV(this, start, end, color);
 			return *this;
 		}
 
-		inline Image& DrawCircle(::Vector2 center, int radius, ::Color color) {
-			::ImageDrawCircleV(this, center, radius, color);
-			return *this;
-		}
-		inline Image& DrawRectangle(int posX, int posY, int width, int height, ::Color color = WHITE) {
-			::ImageDrawRectangle(this, posX, posY, width, height, color);
-			return *this;
-		}
-		inline Image& DrawRectangle(Vector2 position, Vector2 size, ::Color color = WHITE) {
-			::ImageDrawRectangleV(this, position, size, color);
-			return *this;
-		}
-		inline Image& DrawRectangle(::Rectangle rec, ::Color color = WHITE) {
-			::ImageDrawRectangleRec(this, rec, color);
-			return *this;
-		}
-		inline Image& DrawRectangleLines(::Rectangle rec, int thick, ::Color color) {
-			::ImageDrawRectangleLines(this, rec, thick, color);
-			return *this;
-		}
-		inline Image& Draw(::Image& src, ::Rectangle srcRec, ::Rectangle dstRec, ::Color tint = WHITE) {
-			::ImageDraw(this, src, srcRec, dstRec, tint);
+		inline Image& DrawCircle(int centerX, int centerY, int radius, raylib::Color color) {
+			raylib::ImageDrawCircle(this, centerX, centerY, radius, color);
 			return *this;
 		}
 
-		inline Image& DrawText(::Vector2 position, const std::string& text, int fontSize, ::Color color = WHITE){
-			::ImageDrawText(this, position, text.c_str(), fontSize, color);
+		inline Image& DrawCircle(raylib::Vector2 center, int radius, raylib::Color color) {
+			raylib::ImageDrawCircleV(this, center, radius, color);
 			return *this;
 		}
-		inline Image& DrawText(::Vector2 position, ::Font font, const std::string& text, float fontSize, float spacing, ::Color color = WHITE){
-			::ImageDrawTextEx(this, position, font, text.c_str(), fontSize, spacing, color);
+		inline Image& DrawRectangle(int posX, int posY, int width, int height, raylib::Color color = WHITE) {
+			raylib::ImageDrawRectangle(this, posX, posY, width, height, color);
+			return *this;
+		}
+		inline Image& DrawRectangle(Vector2 position, Vector2 size, raylib::Color color = WHITE) {
+			raylib::ImageDrawRectangleV(this, position, size, color);
+			return *this;
+		}
+		inline Image& DrawRectangle(raylib::Rectangle rec, raylib::Color color = WHITE) {
+			raylib::ImageDrawRectangleRec(this, rec, color);
+			return *this;
+		}
+		inline Image& DrawRectangleLines(raylib::Rectangle rec, int thick, raylib::Color color) {
+			raylib::ImageDrawRectangleLines(this, rec, thick, color);
+			return *this;
+		}
+		inline Image& Draw(raylib::Image& src, raylib::Rectangle srcRec, raylib::Rectangle dstRec, raylib::Color tint = WHITE) {
+			raylib::ImageDraw(this, src, srcRec, dstRec, tint);
 			return *this;
 		}
 
-		inline ::Color* GetImageData() {
-			return ::GetImageData(*this);
+		inline Image& DrawText(raylib::Vector2 position, const std::string& text, int fontSize, raylib::Color color = WHITE) {
+			raylib::ImageDrawText(this, position, text.c_str(), fontSize, color);
+			return *this;
+		}
+		inline Image& DrawText(raylib::Vector2 position, raylib::Font font, const std::string& text, float fontSize, float spacing, raylib::Color color = WHITE) {
+			raylib::ImageDrawTextEx(this, position, font, text.c_str(), fontSize, spacing, color);
+			return *this;
 		}
 
-		inline ::Vector4* GetImageDataNormalized() {
-			return ::GetImageDataNormalized(*this);
+		inline raylib::Color* GetImageData() {
+			return raylib::GetImageData(*this);
 		}
-		inline operator Texture2D() {
-			return ::LoadTextureFromImage(*this);
+
+		inline raylib::Vector4* GetImageDataNormalized() {
+			return raylib::GetImageDataNormalized(*this);
+		}
+		inline operator raylib::Texture2D() {
+			return raylib::LoadTextureFromImage(*this);
 		}
 	};
 }

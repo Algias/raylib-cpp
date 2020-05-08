@@ -1,32 +1,36 @@
 #ifndef RAYLIB_CPP_MUSIC_HPP_
 #define RAYLIB_CPP_MUSIC_HPP_
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-#include "raylib.h"
-#ifdef __cplusplus
-}
-#endif
+
 
 #include "./raylib-cpp-utils.hpp"
 
 namespace raylib {
-	class Music : public ::Music {
+#ifdef __cplusplus
+	extern "C" {
+#endif
+#include "raylib.h"
+#ifdef __cplusplus
+	}
+#endif
+}
+namespace raylibcpp {
+
+	class Music : public raylib::Music {
 	public:
-		Music(::Music music) {
+		Music(raylib::Music music) {
 			set(music);
 		};
 
 		Music(const std::string& fileName) {
-			set(::LoadMusicStream(fileName.c_str()));
+			set(raylib::LoadMusicStream(fileName.c_str()));
 		}
 
 		~Music() {
 			Unload();
 		}
 
-		inline void set(::Music music) {
+		inline void set(raylib::Music music) {
 			ctxType = music.ctxType;
 			ctxData = music.ctxData;
 			sampleCount = music.sampleCount;
@@ -34,67 +38,67 @@ namespace raylib {
 			stream = music.stream;
 		}
 
-		GETTERSETTER(int,CtxType,ctxType)
-		GETTERSETTER(unsigned int,SampleCount,sampleCount)
-		GETTERSETTER(unsigned int,LoopCount,loopCount)
+		GETTERSETTER(int, CtxType, ctxType)
+			GETTERSETTER(unsigned int, SampleCount, sampleCount)
+			GETTERSETTER(unsigned int, LoopCount, loopCount)
 
-        Music& operator=(const ::Music& music) {
-            set(music);
-            return *this;
-        }
+			Music& operator=(const raylib::Music& music) {
+			set(music);
+			return *this;
+		}
 
-        Music& operator=(const Music& music) {
-            set(music);
-            return *this;
-        }
+		raylib::Music& operator=(const Music& music) {
+			set(music);
+			return *this;
+		}
 
-        inline void Unload() {
-        	::UnloadMusicStream(*this);
-        }
+		inline void Unload() {
+			raylib::UnloadMusicStream(*this);
+		}
 
-        inline Music& Play() {
-        	::PlayMusicStream(*this);
-        	return *this;
-        }
+		inline Music& Play() {
+			raylib::PlayMusicStream(*this);
+			return *this;
+		}
 
 		inline Music& Update() {
-			::UpdateMusicStream(*this);
-        	return *this;
+			raylib::UpdateMusicStream(*this);
+			return *this;
 		}
 
 		inline Music& Stop() {
-			::StopMusicStream(*this);
-        	return *this;
+			raylib::StopMusicStream(*this);
+			return *this;
 		}
 
 		inline Music& Pause() {
-			::PauseMusicStream(*this);
-        	return *this;
+			raylib::PauseMusicStream(*this);
+			return *this;
 		}
 		inline Music& Resume() {
-			::ResumeMusicStream(*this);
-        	return *this;
+			raylib::ResumeMusicStream(*this);
+			return *this;
 		}
 		inline bool IsPlaying() {
-			return ::IsMusicPlaying(*this);
+			return raylib::IsMusicPlaying(*this);
 		}
 		inline Music& SetVolume(float volume) {
-			::SetMusicVolume(*this, volume);
-        	return *this;
+			raylib::SetMusicVolume(*this, volume);
+			return *this;
 		}
 		inline Music& SetPitch(float pitch) {
-			::SetMusicPitch(*this, pitch);
-        	return *this;
+			raylib::SetMusicPitch(*this, pitch);
+			return *this;
 		}
-		inline Music& SetLoopCount(int count)  {
-			::SetMusicLoopCount(*this, count);
-        	return *this;
+		inline Music& SetLoopCount(int count) {
+			raylib::SetMusicLoopCount(*this, count);
+			return *this;
 		}
 		inline float GetTimeLength() {
-			return ::GetMusicTimeLength(*this);
+			return raylib::GetMusicTimeLength(*this);
 		}
 		inline float GetTimePlayed() {
-			return ::GetMusicTimePlayed(*this);
+			return raylib::GetMusicTimePlayed(*this);
 		}
 
 

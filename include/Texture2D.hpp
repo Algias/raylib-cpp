@@ -3,26 +3,30 @@
 
 #include <string>
 
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
 
 #include "./raylib-cpp-utils.hpp"
 #include "./Vector2.hpp"
 #include "./Material.hpp"
+#include <Image.hpp>
 
-namespace raylib {
-	class Texture2D : public ::Texture2D {
+namespace raylibcpp {
+
+	class Texture2D : public raylib::Texture2D {
 	public:
 		Texture2D() {
-			set(::GetTextureDefault());
+			set(raylib::GetTextureDefault());
 		};
 
-		Texture2D(::Image& image) {
+		Texture2D(raylib::Image& image) {
 			LoadFromImage(image);
 		}
 
@@ -34,7 +38,7 @@ namespace raylib {
 			Unload();
 		};
 
-		inline void set(::Texture2D texture) {
+		inline void set(raylib::Texture2D texture) {
 			id = texture.id;
 			width = texture.width;
 			height = texture.height;
@@ -42,108 +46,108 @@ namespace raylib {
 			format = texture.format;
 		}
 
-		GETTERSETTER(unsigned int,Id,id)
-		GETTERSETTER(int,Width,width)
-		GETTERSETTER(int,Height,height)
-		GETTERSETTER(int,Mipmaps,mipmaps)
-		GETTERSETTER(int,Format,format)
+		GETTERSETTER(unsigned int, Id, id)
+			GETTERSETTER(int, Width, width)
+			GETTERSETTER(int, Height, height)
+			GETTERSETTER(int, Mipmaps, mipmaps)
+			GETTERSETTER(int, Format, format)
 
-        Texture2D& operator=(const ::Texture2D& texture) {
-            set(texture);
-            return *this;
-        }
-
-        Texture2D& operator=(const Texture2D& texture) {
-            set(texture);
-            return *this;
-        }
-
-		void LoadFromImage(::Image& image) {
-			set(::LoadTextureFromImage(image));
+			Texture2D& operator=(const raylib::Texture2D& texture) {
+			set(texture);
+			return *this;
 		}
 
-		void LoadTextureCubemap(::Image& image, int layoutType) {
-			set(::LoadTextureCubemap(image, layoutType));
+		raylib::Texture2D& operator=(const Texture2D& texture) {
+			set(texture);
+			return *this;
+		}
+
+		void LoadFromImage(raylib::Image& image) {
+			set(raylib::LoadTextureFromImage(image));
+		}
+
+		void LoadTextureCubemap(raylib::Image& image, int layoutType) {
+			set(raylib::LoadTextureCubemap(image, layoutType));
 		}
 
 		void Load(const std::string& fileName) {
-			set(::LoadTexture(fileName.c_str()));
+			set(raylib::LoadTexture(fileName.c_str()));
 		}
 
 		inline void Unload() {
-			::UnloadTexture(*this);
+			raylib::UnloadTexture(*this);
 		}
 
-		inline Texture2D& Update(const void *pixels) {
-			::UpdateTexture(*this, pixels);
+		inline Texture2D& Update(const void* pixels) {
+			raylib::UpdateTexture(*this, pixels);
 			return *this;
 		}
 
 		inline Image GetTextureData() {
-			return ::GetTextureData(*this);
+			return raylib::GetTextureData(*this);
 		}
 		inline operator raylib::Image() {
 			return GetTextureData();
 		}
 
 		inline Texture2D& GenMipmaps() {
-			::GenTextureMipmaps(this);
+			raylib::GenTextureMipmaps(this);
 			return *this;
 		}
 
 		inline Texture2D& SetFilter(int filterMode) {
-			::SetTextureFilter(*this, filterMode);
+			raylib::SetTextureFilter(*this, filterMode);
 			return *this;
 		}
 
 		inline Texture2D& SetWrap(int wrapMode) {
-			::SetTextureWrap(*this, wrapMode);
+			raylib::SetTextureWrap(*this, wrapMode);
 			return *this;
 		}
 
-		inline Texture2D& Draw(int posX, int posY, ::Color tint = WHITE) {
-			::DrawTexture(*this, posX, posY, tint);
+		inline Texture2D& Draw(int posX, int posY, raylib::Color tint = WHITE) {
+			raylib::DrawTexture(*this, posX, posY, tint);
 			return *this;
 		}
 
-		inline Texture2D& Draw(::Vector2 position, ::Color tint = WHITE) {
-			::DrawTextureV(*this, position, tint);
+		inline Texture2D& Draw(raylib::Vector2 position, raylib::Color tint = WHITE) {
+			raylib::DrawTextureV(*this, position, tint);
 			return *this;
 		}
-		inline Texture2D& Draw(::Vector2 position, float rotation, float scale = 1.0f, ::Color tint = WHITE) {
-			::DrawTextureEx(*this, position, rotation, scale, tint);
-			return *this;
-		}
-
-		inline Texture2D& Draw(::Rectangle sourceRec, ::Vector2 position, ::Color tint = WHITE) {
-			::DrawTextureRec(*this, sourceRec, position, tint);
-			return *this;
-		}
-		inline Texture2D& Draw(::Vector2 tiling, ::Vector2 offset, ::Rectangle quad, ::Color tint = WHITE) {
-			::DrawTextureQuad(*this, tiling, offset, quad, tint);
-			return *this;
-		}
-		inline Texture2D& Draw(::Rectangle sourceRec, ::Rectangle destRec, ::Vector2 origin, float rotation = 0, ::Color tint = WHITE) {
-			::DrawTexturePro(*this, sourceRec, destRec, origin, rotation, tint);
-			return *this;
-		}
-		inline Texture2D& Draw(::NPatchInfo nPatchInfo, ::Rectangle destRec, ::Vector2 origin, float rotation = 0, ::Color tint = WHITE) {
-			::DrawTextureNPatch(*this, nPatchInfo, destRec, origin, rotation, tint);
+		inline Texture2D& Draw(raylib::Vector2 position, float rotation, float scale = 1.0f, raylib::Color tint = WHITE) {
+			raylib::DrawTextureEx(*this, position, rotation, scale, tint);
 			return *this;
 		}
 
-		inline Texture2D& Draw(::Vector3 position, float width, float height, float length, ::Color color = WHITE) {
-			::DrawCubeTexture(*this, position, width, height, length, color);
+		inline Texture2D& Draw(raylib::Rectangle sourceRec, raylib::Vector2 position, raylib::Color tint = WHITE) {
+			raylib::DrawTextureRec(*this, sourceRec, position, tint);
+			return *this;
+		}
+		inline Texture2D& Draw(raylib::Vector2 tiling, raylib::Vector2 offset, raylib::Rectangle quad, raylib::Color tint = WHITE) {
+			raylib::DrawTextureQuad(*this, tiling, offset, quad, tint);
+			return *this;
+		}
+		inline Texture2D& Draw(raylib::Rectangle sourceRec, raylib::Rectangle destRec, raylib::Vector2 origin, float rotation = 0, raylib::Color tint = WHITE) {
+			raylib::DrawTexturePro(*this, sourceRec, destRec, origin, rotation, tint);
+			return *this;
+		}
+		inline Texture2D& Draw(raylib::NPatchInfo nPatchInfo, raylib::Rectangle destRec, raylib::Vector2 origin, float rotation = 0, raylib::Color tint = WHITE) {
+			raylib::DrawTextureNPatch(*this, nPatchInfo, destRec, origin, rotation, tint);
 			return *this;
 		}
 
-		inline Texture2D& SetMaterialTexture(Material *material, int mapType) {
-			::SetMaterialTexture(material, mapType, *this);
+		inline Texture2D& Draw(raylib::Vector3 position, float width, float height, float length, raylib::Color color = WHITE) {
+			raylib::DrawCubeTexture(*this, position, width, height, length, color);
+			return *this;
+		}
+
+		inline Texture2D& SetMaterialTexture(Material* material, int mapType) {
+			raylib::SetMaterialTexture(material, mapType, *this);
 			return *this;
 		}
 
 		static int GetPixelDataSize(int width, int height, int format) {
-			return ::GetPixelDataSize(width, height, format);
+			return raylib::GetPixelDataSize(width, height, format);
 		}
 	};
 

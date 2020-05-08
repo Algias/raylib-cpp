@@ -1,26 +1,29 @@
 #ifndef RAYLIB_CPP_VECTOR3_HPP_
 #define RAYLIB_CPP_VECTOR3_HPP_
 
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifndef RAYLIB_CPP_NO_MATH
 #include "raymath.h"
 #endif
 #ifdef __cplusplus
-}
+	}
 #endif
-
+}
 #include "./raylib-cpp-utils.hpp"
 #ifndef RAYLIB_CPP_NO_MATH
 #include <cmath>
 #endif
 
-namespace raylib {
-	class Vector3 : public ::Vector3 {
+#include <Color.hpp>
+
+namespace raylibcpp {
+	class Vector3 : public raylib::Vector3 {
 	public:
-		Vector3(::Vector3 vec) {
+		Vector3(raylib::Vector3 vec) {
 			set(vec);
 		};
 		Vector3(float X = 0, float Y = 0, float Z = 0) {
@@ -29,25 +32,25 @@ namespace raylib {
 			z = Z;
 		};
 
-		Vector3(::Color color) {
+		Vector3(raylib::Color color) {
 			set(ColorToHSV(color));
 		}
-		inline void set(::Vector3 vec) {
+		inline void set(raylib::Vector3 vec) {
 			x = vec.x;
 			y = vec.y;
 			z = vec.z;
 		}
 
-		GETTERSETTER(float,X,x)
-		GETTERSETTER(float,Y,y)
-		GETTERSETTER(float,Z,z)
+		GETTERSETTER(float, X, x)
+			GETTERSETTER(float, Y, y)
+			GETTERSETTER(float, Z, z)
 
-		Vector3& operator=(const ::Vector3& vector3) {
+			Vector3& operator=(const raylib::Vector3& vector3) {
 			set(vector3);
 			return *this;
 		}
 
-		Vector3& operator=(const Vector3& vector3) {
+		raylib::Vector3& operator=(const Vector3& vector3) {
 			set(vector3);
 			return *this;
 		}
@@ -184,11 +187,11 @@ namespace raylib {
 			return Vector3OrthoNormalize(this, vector3);
 		}
 
-		Vector3 Transform(const ::Matrix& matrix) {
+		Vector3 Transform(const raylib::Matrix& matrix) {
 			return Vector3Transform(*this, matrix);
 		}
 
-		Vector3 RotateByQuaternion(Quaternion quaternion) {
+		Vector3 RotateByQuaternion(raylib::Quaternion quaternion) {
 			return Vector3RotateByQuaternion(*this, quaternion);
 		}
 
@@ -209,82 +212,82 @@ namespace raylib {
 		}
 
 		static Vector3 Zero() {
-			return Vector3Zero();
+			return raylib::Vector3Zero();
 		}
 
 		static Vector3 One() {
-			return Vector3One();
+			return raylib::Vector3One();
 		}
 #endif
 
-		inline Vector3& DrawLine3D(::Vector3 endPos, ::Color color) {
-			::DrawLine3D(*this, endPos, color);
+		inline Vector3& DrawLine3D(raylib::Vector3 endPos, raylib::Color color) {
+			raylib::DrawLine3D(*this, endPos, color);
 			return *this;
 		}
-		inline Vector3& DrawPoint3D(::Color color) {
-			::DrawPoint3D(*this, color);
+		inline Vector3& DrawPoint3D(raylib::Color color) {
+			raylib::DrawPoint3D(*this, color);
 			return *this;
 		}
-		inline Vector3& DrawCircle3D(float radius, Vector3 rotationAxis, float rotationAngle, Color color) {
-			::DrawCircle3D(*this, radius, rotationAxis, rotationAngle, color);
-			return *this;
-		}
-
-		inline Vector3& DrawCube(float width, float height, float length, ::Color color) {
-			::DrawCube(*this, width, height, length, color);
-			return *this;
-		}
-		inline Vector3& DrawCube(::Vector3 size, ::Color color) {
-			::DrawCubeV(*this, size, color);
+		inline Vector3& DrawCircle3D(float radius, Vector3 rotationAxis, float rotationAngle, raylib::Color color) {
+			raylib::DrawCircle3D(*this, radius, rotationAxis, rotationAngle, color);
 			return *this;
 		}
 
-		inline Vector3& DrawCubeWires(float width, float height, float length, ::Color color) {
-			::DrawCubeWires(*this, width, height, length, color);
+		inline Vector3& DrawCube(float width, float height, float length, raylib::Color color) {
+			raylib::DrawCube(*this, width, height, length, color);
 			return *this;
 		}
-		inline Vector3& DrawCubeWires(::Vector3 size, ::Color color) {
-			::DrawCubeWiresV(*this, size, color);
+		inline Vector3& DrawCube(raylib::Vector3 size, raylib::Color color) {
+			raylib::DrawCubeV(*this, size, color);
 			return *this;
 		}
 
-		inline Vector3& DrawCubeTexture(::Texture2D texture, float width, float height, float length, ::Color color) {
-			::DrawCubeTexture(texture, *this, width, height, length, color);
+		inline Vector3& DrawCubeWires(float width, float height, float length, raylib::Color color) {
+			raylib::DrawCubeWires(*this, width, height, length, color);
+			return *this;
+		}
+		inline Vector3& DrawCubeWires(raylib::Vector3 size, raylib::Color color) {
+			raylib::DrawCubeWiresV(*this, size, color);
+			return *this;
+		}
+
+		inline Vector3& DrawCubeTexture(raylib::Texture2D texture, float width, float height, float length, raylib::Color color) {
+			raylib::DrawCubeTexture(texture, *this, width, height, length, color);
 			return *this;
 		}
 
 		inline Vector3& DrawSphere(float radius, Color color) {
-			::DrawSphere(*this, radius, color);
+			raylib::DrawSphere(*this, radius, color);
 			return *this;
 		}
 
 		inline Vector3& DrawSphere(float radius, int rings, int slices, Color color) {
-			::DrawSphereEx(*this, radius, rings, slices, color);
+			raylib::DrawSphereEx(*this, radius, rings, slices, color);
 			return *this;
 		}
 
 		inline Vector3& DrawSphereWires(float radius, int rings, int slices, Color color) {
-			::DrawSphereWires(*this, radius, rings, slices, color);
+			raylib::DrawSphereWires(*this, radius, rings, slices, color);
 			return *this;
 		}
 
 		inline Vector3& DrawCylinder(float radiusTop, float radiusBottom, float height, int slices, Color color) {
-			::DrawCylinder(*this, radiusTop, radiusBottom, height, slices, color);
+			raylib::DrawCylinder(*this, radiusTop, radiusBottom, height, slices, color);
 			return *this;
 		}
 
 		inline Vector3& DrawCylinderWires(float radiusTop, float radiusBottom, float height, int slices, Color color) {
-			::DrawCylinderWires(*this, radiusTop, radiusBottom, height, slices, color);
+			raylib::DrawCylinderWires(*this, radiusTop, radiusBottom, height, slices, color);
 			return *this;
 		}
 
-		inline Vector3& DrawPlane(::Vector2 size, ::Color color) {
-			::DrawPlane(*this, size, color);
+		inline Vector3& DrawPlane(raylib::Vector2 size, raylib::Color color) {
+			raylib::DrawPlane(*this, size, color);
 			return *this;
 		}
 
 		inline Vector3& DrawGizmo() {
-			::DrawGizmo(*this);
+			raylib::DrawGizmo(*this);
 			return *this;
 		}
 
@@ -293,5 +296,4 @@ namespace raylib {
 		}
 	};
 }
-
 #endif

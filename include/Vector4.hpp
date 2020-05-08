@@ -1,58 +1,64 @@
 #ifndef RAYLIB_CPP_VECTOR4_HPP_
 #define RAYLIB_CPP_VECTOR4_HPP_
 
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifndef RAYLIB_CPP_NO_MATH
 #include "raymath.h"
 #endif
 #ifdef __cplusplus
-}
+	}
 #endif
+}
 
 #include "./raylib-cpp-utils.hpp"
 #ifndef RAYLIB_CPP_NO_MATH
 #include <cmath>
 #endif
 
-namespace raylib {
-	class Vector4 : public ::Vector4 {
+#include <Vector3.hpp>
+#include <utility>
+
+namespace raylibcpp {
+
+	class Vector4 : public raylib::Vector4 {
 	public:
-		Vector4(::Vector4 vec) {
+		Vector4(raylib::Vector4 vec) {
 			set(vec);
 		};
 
 		Vector4(float X = 0, float Y = 0, float Z = 0, float W = 0) {
-			 x = X;
-			 y = Y;
-			 z = Z;
-			 w = W;
+			x = X;
+			y = Y;
+			z = Z;
+			w = W;
 		};
 
-		Vector4(::Color color) {
+		Vector4(raylib::Color color) {
 			set(ColorNormalize(color));
 		}
 
-		inline void set(::Vector4 vec4) {
+		inline void set(raylib::Vector4 vec4) {
 			x = vec4.x;
 			y = vec4.y;
 			z = vec4.z;
 			w = vec4.w;
 		}
 
-		GETTERSETTER(float,X,x)
-		GETTERSETTER(float,Y,y)
-		GETTERSETTER(float,Z,z)
-		GETTERSETTER(float,W,w)
+		GETTERSETTER(float, X, x)
+			GETTERSETTER(float, Y, y)
+			GETTERSETTER(float, Z, z)
+			GETTERSETTER(float, W, w)
 
-		Vector4& operator=(const ::Vector4& vector4) {
+			Vector4& operator=(const raylib::Vector4& vector4) {
 			set(vector4);
 			return *this;
 		}
 
-		Vector4& operator=(const Vector4& vector4) {
+		raylib::Vector4& operator=(const Vector4& vector4) {
 			set(vector4);
 			return *this;
 		}
@@ -101,7 +107,7 @@ namespace raylib {
 			return QuaternionInvert(*this);
 		}
 
-		void ToAxisAngle(Vector3 *outAxis, float *outAngle) {
+		void ToAxisAngle(Vector3* outAxis, float* outAngle) {
 			return QuaternionToAxisAngle(*this, outAxis, outAngle);
 		}
 
@@ -116,41 +122,41 @@ namespace raylib {
 			return out;
 		}
 
-		Vector4 Transform(const ::Matrix& matrix) {
-			return ::QuaternionTransform(*this, matrix);
+		Vector4 Transform(const raylib::Matrix& matrix) {
+			return raylib::QuaternionTransform(*this, matrix);
 		}
 
 		static Vector4 Identity() {
-			return ::QuaternionIdentity();
+			return raylib::QuaternionIdentity();
 		}
 
-		static Vector4 FromVector3ToVector3(const Vector3& from , const Vector3& to) {
-			return ::QuaternionFromVector3ToVector3(from , to);
+		static Vector4 FromVector3ToVector3(const Vector3& from, const Vector3& to) {
+			return raylib::QuaternionFromVector3ToVector3(from, to);
 		}
 
-		static Vector4 FromMatrix(const ::Matrix& matrix) {
-			return ::QuaternionFromMatrix(matrix);
+		static Vector4 FromMatrix(const raylib::Matrix& matrix) {
+			return raylib::QuaternionFromMatrix(matrix);
 		}
 
 		static Vector4 FromAxisAngle(const Vector3& axis, const float angle) {
-			return ::QuaternionFromAxisAngle(axis, angle);
+			return raylib::QuaternionFromAxisAngle(axis, angle);
 		}
 
 		static Vector4 FromEuler(const float roll, const float pitch, const float yaw) {
-			return ::QuaternionFromEuler(roll, pitch, yaw);
+			return raylib::QuaternionFromEuler(roll, pitch, yaw);
 		}
 
 		static Vector4 FromEuler(const Vector3& vector3) {
-			return ::QuaternionFromEuler(vector3.x, vector3.y, vector3.z);
+			return raylib::QuaternionFromEuler(vector3.x, vector3.y, vector3.z);
 		}
 
 		Vector3 ToEuler() {
-			return ::QuaternionToEuler(*this);
+			return raylib::QuaternionToEuler(*this);
 		}
 #endif
 
-		inline Color ColorFromNormalized() {
-			return ::ColorFromNormalized(*this);
+		raylib::Color ColorFromNormalized() {
+			return raylib::ColorFromNormalized(*this);
 		}
 	};
 

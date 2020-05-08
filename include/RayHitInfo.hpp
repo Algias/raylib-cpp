@@ -1,51 +1,54 @@
 #ifndef RAYLIB_CPP_RAYHITINFO_HPP_
 #define RAYLIB_CPP_RAYHITINFO_HPP_
 
+
+#include "./raylib-cpp-utils.hpp"
+namespace raylib {
 #ifdef __cplusplus
-extern "C"{
+	extern "C" {
 #endif
 #include "raylib.h"
 #ifdef __cplusplus
-}
+	}
 #endif
+}
+namespace raylibcpp {
 
-#include "./raylib-cpp-utils.hpp"
 
-namespace raylib {
-	class RayHitInfo : public ::RayHitInfo {
+	class RayHitInfo : public raylib::RayHitInfo {
 	public:
-		RayHitInfo(::RayHitInfo ray) {
+		RayHitInfo(raylib::RayHitInfo ray) {
 			set(ray);
 		};
 
-		RayHitInfo(bool Hit, float Distance, ::Vector3 Position, ::Vector3 Normal) {
+		RayHitInfo(bool Hit, float Distance, raylib::Vector3 Position, raylib::Vector3 Normal) {
 			hit = Hit;
 			distance = Distance;
 			position = Position;
 			normal = Normal;
 		};
 
-        RayHitInfo& operator=(const ::RayHitInfo& ray) {
-            set(ray);
-            return *this;
-        }
+		RayHitInfo& operator=(const raylib::RayHitInfo& ray) {
+			set(ray);
+			return *this;
+		}
 
-        RayHitInfo& operator=(const RayHitInfo& ray) {
-            set(ray);
-            return *this;
-        }
+		RayHitInfo& operator=(const RayHitInfo& ray) {
+			set(ray);
+			return *this;
+		}
 
-		inline void set(::RayHitInfo ray) {
+		inline void set(raylib::RayHitInfo ray) {
 			hit = ray.hit;
 			distance = ray.distance;
 			position = ray.position;
 			normal = ray.normal;
 		}
 
-		GETTERSETTER(bool,Hit,hit)
-		GETTERSETTER(float,Distance,distance)
-		GETTERSETTER(::Vector3,Position,position)
-		GETTERSETTER(::Vector3,Normal,normal)
+		GETTERSETTER(bool, Hit, hit)
+			GETTERSETTER(float, Distance, distance)
+			GETTERSETTER(raylib::Vector3, Position, position)
+			GETTERSETTER(raylib::Vector3, Normal, normal)
 	};
 }
 
